@@ -1,7 +1,11 @@
 import { View, Text, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useGoals } from '../../hooks/useGoals'
 
 const Goals = () => {
+
+  const { goals } = useGoals()
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Your Goals</Text>
