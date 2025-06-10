@@ -1,6 +1,7 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, FlatList, Pressable } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useGoals } from '../../hooks/useGoals'
+
 
 const Goals = () => {
 
@@ -9,7 +10,15 @@ const Goals = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Your Goals</Text>
-
+      <FlatList
+        data={goals}
+        keyExtractor={(item) => item.$id}
+        contentContainerStyle={styles.list}
+        renderItem={({ item }) => (
+          <Pressable>
+            <Text>{item.desc}</Text>
+          </Pressable>
+        )} />
     </SafeAreaView>
   )
 }
