@@ -13,14 +13,11 @@ export function GoalsProvider({children}) {
     }
 
     async function removeGoal(goal) {
-        console.log('Removing Goal:' + JSON.stringify(goal))
         await deleteDoc(doc(db, 'goals', goal.id))
     }
 
-    async function updateGoal(goal) {
-        await updateDoc(doc(db, 'goals', goal.id), {
-            progress: goal.progress
-        })
+    async function updateGoal(id, updates) {
+        await updateDoc(doc(db, 'goals', id), updates)
     }
 
     useEffect(() => {

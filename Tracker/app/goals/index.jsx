@@ -10,8 +10,10 @@ const Goals = () => {
   const { goals, updateGoal, removeGoal } = useGoals()
 
   const  handleUpdateProgress = async (progress) => {
-    selectedGoal.progress = progress
-    await updateGoal(selectedGoal)
+    // Putting this in will smoothen the transition
+    // It's like an optimistic approach where we assume the update will work
+    // selectedGoal.progress = progress
+    await updateGoal(selectedGoal.id, {progress: progress})
   }
 
   const handleDeleteGoal = async () => {
