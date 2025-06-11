@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, FlatList, Pressable } from 'react-native'
+import { Text, StyleSheet, FlatList, Pressable, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useGoals } from '../../hooks/useGoals'
 
@@ -12,13 +12,16 @@ const Goals = () => {
       <Text style={styles.title}>Your Goals</Text>
       <FlatList
         data={goals}
-        keyExtractor={(item) => item.$id}
+        keyExtractor={(item) => item.id}
         contentContainerStyle={styles.list}
         renderItem={({ item }) => (
           <Pressable>
-            <Text>{item.desc}</Text>
+            <View style={styles.goal}>
+              <Text style={{margin:16}}>{item.goal}</Text>
+              <View style={[styles.progress, {width: `${item.progress}%`}]}/>
+            </View>
           </Pressable>
-        )} />
+        )}/>
     </SafeAreaView>
   )
 }
@@ -35,4 +38,20 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 30,
   },
+  list: {
+    paddingHorizontal: 20,
+  },
+  goal: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    marginVertical: 10,
+    marginHorizontal: 30,
+    overflow: 'hidden',
+  },
+  progress: {
+    height: 10,
+    backgroundColor: '#21cc8d',
+    minWidth: 10,
+    borderRadius: 2,
+  }
 })
