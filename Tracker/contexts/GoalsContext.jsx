@@ -1,5 +1,6 @@
+import { doc } from 'firebase/firestore';
 import { createContext, useEffect, useState } from 'react';
-import { getDocs, addDoc, collection, onSnapshot } from 'firebase/firestore';
+import { addDoc, collection, onSnapshot, updateDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 
 export const GoalsContext = createContext()
@@ -16,7 +17,9 @@ export function GoalsProvider({children}) {
     }
 
     async function updateGoal(goal) {
-        
+        await updateDoc(doc(db, 'goals', goal.id), {
+            progress: goal.progress
+        })
     }
 
     useEffect(() => {

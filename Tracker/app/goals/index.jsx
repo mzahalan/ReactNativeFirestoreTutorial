@@ -1,12 +1,18 @@
 import { Text, StyleSheet, FlatList, Pressable, View, Modal } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import Slider from '@react-native-community/slider'
 import { useGoals } from '../../hooks/useGoals'
 import { useState } from 'react'
 
 
 const Goals = () => {
   const [selectedGoal, setSelectedGoal] = useState(null)
-  const { goals } = useGoals()
+  const { goals, updateGoal } = useGoals()
+
+  const updateProgress = async (progress) => {
+    selectedGoal.progress = progress
+    await updateGoal(selectedGoal)
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -32,6 +38,17 @@ const Goals = () => {
             <View style={styles.modal}>
               <Text style={styles.title}>{selectedGoal.goal}</Text>
               <Text>Adjust the progress of this goal:</Text>
+              <Slider
+                style={{ width: '80%', height: 40, marginVertical: 20 }}
+                value={selectedGoal.progress}
+                minimumValue={0}
+                maximumValue={100}
+                step={1}
+                minimumTrackTintColor="#21cc8d"
+                maximumTrackTintColor="#ddd"
+                thumbTintColor='#21cc8d'
+                onSlidingComplete={updateProgress}
+              />
               <View style={styles.buttonsWrapper}>
                 <Pressable style={styles.btn} onPress={()=>setSelectedGoal(null)}>
                   <Text style={{color: 'white'}}>Close</Text>
