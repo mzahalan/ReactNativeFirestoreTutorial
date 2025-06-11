@@ -1,6 +1,6 @@
 import { doc } from 'firebase/firestore';
 import { createContext, useEffect, useState } from 'react';
-import { addDoc, collection, onSnapshot, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, onSnapshot, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 
 export const GoalsContext = createContext()
@@ -13,7 +13,8 @@ export function GoalsProvider({children}) {
     }
 
     async function removeGoal(goal) {
-        
+        console.log('Removing Goal:' + JSON.stringify(goal))
+        await deleteDoc(doc(db, 'goals', goal.id))
     }
 
     async function updateGoal(goal) {

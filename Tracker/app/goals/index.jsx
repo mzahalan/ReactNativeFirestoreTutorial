@@ -7,11 +7,16 @@ import { useState } from 'react'
 
 const Goals = () => {
   const [selectedGoal, setSelectedGoal] = useState(null)
-  const { goals, updateGoal } = useGoals()
+  const { goals, updateGoal, removeGoal } = useGoals()
 
-  const updateProgress = async (progress) => {
+  const  handleUpdateProgress = async (progress) => {
     selectedGoal.progress = progress
     await updateGoal(selectedGoal)
+  }
+
+  const handleDeleteGoal = async () => {
+    await removeGoal(selectedGoal)
+    setSelectedGoal(null)
   }
 
   return (
@@ -47,11 +52,16 @@ const Goals = () => {
                 minimumTrackTintColor="#21cc8d"
                 maximumTrackTintColor="#ddd"
                 thumbTintColor='#21cc8d'
-                onSlidingComplete={updateProgress}
+                onSlidingComplete={handleUpdateProgress}
               />
               <View style={styles.buttonsWrapper}>
                 <Pressable style={styles.btn} onPress={()=>setSelectedGoal(null)}>
                   <Text style={{color: 'white'}}>Close</Text>
+                </Pressable>
+              </View>
+              <View style={styles.delButtonWrapper}>
+                <Pressable style={styles.deleteBtn} onPress={()=> handleDeleteGoal()}>
+                  <Text style={{color: 'white'}}>Delete Goal</Text>
                 </Pressable>
               </View>
             </View>
@@ -91,6 +101,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   modal: {
+    flex: 1,
     margin: 20,
     marginTop: 100,
     alignItems: 'center'
@@ -110,5 +121,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#21cc8d',
     padding: 16,
     borderRadius: 8,
+  },
+  delButtonWrapper: {
+    width: '100%',
+    position: 'absolute',
+    bottom: 0,
+    paddingHorizontal: 20,
+    paddingBottom: 30
+  },
+  deleteBtn: {
+    backgroundColor: '#e74c3c',
+    padding: 16,
+    borderRadius: 8,
+    width: '100%',
+    alignItems: 'center'
   }
 })
