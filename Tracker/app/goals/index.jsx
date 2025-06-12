@@ -62,7 +62,7 @@ const Goals = () => {
                 </Pressable>
               </View>
               <View style={styles.delButtonWrapper}>
-                <Pressable style={styles.deleteBtn} onPress={()=> handleDeleteGoal()}>
+                <Pressable style={[styles.btn, {backgroundColor: '#e74c3c', width: '100%', alignItems: 'center'}]} onPress={()=> handleDeleteGoal()}>
                   <Text style={{color: 'white'}}>Delete Goal</Text>
                 </Pressable>
               </View>
@@ -130,12 +130,5 @@ const styles = StyleSheet.create({
     bottom: 0,
     paddingHorizontal: 20,
     paddingBottom: 30
-  },
-  deleteBtn: {
-    backgroundColor: '#e74c3c',
-    padding: 16,
-    borderRadius: 8,
-    width: '100%',
-    alignItems: 'center'
   }
 })
